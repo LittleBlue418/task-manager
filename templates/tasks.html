@@ -1,27 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% for task in tasks %}
-        {{task.task_name}}
-        {{task.category_name}}
-        {{task.task_description}}
-        {{task.is_urgent}}
-        {{task.due_date}}
+
+
+    <ul class="collapsible">
+        {% for task in tasks %}
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">crop_square</i>
+                    <i class="material-icons">arrow_drop_down</i>
+                    {% if task.is_urgent %}
+                        <i class="material-icons">flag</i>
+                    {% endif %}
+
+                    {{task.task_name}}  -  {{task.due_date}}  -  {{task.category_name}}
+                </div>
+                <div class="collapsible-body">
+                    <span>
+                        {{task.task_description}}
+                    </span>
+                </div>
+            </li>
+
+
+
+
+
+
 
     {% endfor %}
 
-    <ul class="collapsible">
-        <li>
-          <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-          <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-          <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-          <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-          <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-          <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-      </ul>
+    </ul>
 
 {% endblock%}
