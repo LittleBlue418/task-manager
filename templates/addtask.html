@@ -4,7 +4,7 @@
 <h3>Add Task</h3>
 
 <div class="row">
-    <form action="" method="POST" class="col s12">
+    <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">assignment</i>
@@ -40,13 +40,19 @@
         </div>
         <div class="input-field col s12">
             <i class="material-icons prefix">filter_none</i>
-            <select>
+            <select id="category" name="category_name">
                 <option value="" disabled selected>Select Category</option>
-                    {% for category in categories %}
-                        <option value="{{category.category_name }}">{{category.category_name }}</option>
-                    {% endfor %}
+                {% for category in categories %}
+                    <option value="{{ category.category_name }}">{{category.category_name }}</option>
+                {% endfor %}
             </select>
-          </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit"
+                name="action">Add Task
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
     </form>
 </div>
 

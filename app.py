@@ -25,6 +25,15 @@ def get_tasks():
 def add_task():
     return render_template("addtask.html", categories=mongo.db.categories.find())
 
+@app.route('/insert_task', methods=['POST'])
+def insert_task():
+    tasks = mongo.db.tasks
+    new_task = request.form.to_dict()
+    del new_task['action']
+    tasks.insert_one(new_task)
+
+    return redirect(url_for('get_tasks'))
+
 if __name__ == '__main__':
     app.run(
         host="0.0.0.0" if "DYNO" in os.environ else None,
