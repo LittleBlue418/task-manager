@@ -12,18 +12,22 @@ app = Flask(__name__)
 password = os.environ.get("MONGODB_PASSWORD")
 
 app.config["MONGO_DBNAME"] = 'task_manager'
-app.config["MONGO_URI"] = 'mongodb+srv://root:{}@myfirstcluster-8zy3m.mongodb.net/task_manager?retryWrites=true&w=majority'.format(password)
+app.config["MONGO_URI"] = 'mongodb+srv://root:{}@myfirstcluster-8zy3m.mongodb.net/task_manager?retryWrites=true&w=majority'.format(
+    password)
 
 mongo = PyMongo(app)
+
 
 @app.route('/')
 @app.route('/get_tasks')
 def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
 
+
 @app.route('/add_task')
 def add_task():
     return render_template("addtask.html", categories=mongo.db.categories.find())
+
 
 @app.route('/insert_task', methods=['POST'])
 def insert_task():
@@ -36,11 +40,26 @@ def insert_task():
 
     return redirect(url_for('get_tasks'))
 
+
 @app.route('/edit_task/<task_id>')
 def edit_task(task_id):
     task_to_edit = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     all_categories = mongo.db.categories.find()
     return render_template('edittask.html', task=task_to_edit, categories=all_categories)
+
+
+@app.route('/update_task/<task_id>', methods=["POST"])
+def update_task(task_id):
+    tasks = mongo.db.tasks
+    tasks.update({'_id': ObjectId(task_id)},
+        {
+            'task_name': request.form.get('task_name'),
+            'category_name': request.form.get('category_name'),
+            'task_description': request.form.get('task_description'),
+            'due_date': request.form.get('due_date'),
+            'is_urgent': request.form.get('is_urgent')
+        })
+    return redirect(url_for('get_tasks'))
 
 
 if __name__ == '__main__':
