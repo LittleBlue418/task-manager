@@ -74,10 +74,25 @@ def update_task(task_id):
             'category_name': request.form.get('category_name'),
             'task_description': request.form.get('task_description'),
             'due_date': request.form.get('due_date'),
-            'is_urgent': request.form.get('is_urgent')
+            'is_urgent': request.form.get('is_urgent'),
+            'complete': False
         })
     return redirect(url_for('get_tasks'))
 
+@app.route('/toggle_complete/<task_id>')
+def toggle_complete(task_id):
+    tasks = mongo.db.tasks
+    is_completed = bool(request.args.get('done'))
+    print(is_completed)
+
+    if is_completed:
+        tasks.update_one({'_id': ObjectId(task_id)},
+            {'$set':{'complete': True}})
+    else:
+        tasks.update_one({'_id': ObjectId(task_id)},
+            {'$set':{'complete': False}})
+
+    return redirect(url_for('get_tasks'))
 
 if __name__ == '__main__':
     app.run(
