@@ -1,8 +1,8 @@
 .btn_small {
     height: 26px;
-    width: 60px;
+    width: 82px;
     margin: 5px 5px;
-    padding: 0 0.5em;
+    padding-top: 1px;
     border: none;
     border-radius: 4px;
 
@@ -14,7 +14,27 @@
     color: white;
 }
 
+.btn_wide {
+    height: 35px;
+    width: 180px;
+    margin: 5px 5px;
+    padding-top: 5px;
+    border: none;
+    border-radius: 4px;
+
+    line-height: 24px;
+    letter-spacing: 1px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: white;
+}
+
+.completed_task .collapsible-header {
+    background-color: #ececec;
+}
+
 .task_header {
     margin-top: 5px;
-    padding-left: 5px;
+    padding-left: 10px;
 }
