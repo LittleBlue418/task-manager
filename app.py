@@ -35,6 +35,7 @@ def insert_task():
     new_task = request.form.to_dict()
 
     new_task['is_urgent'] = 'is_urgent' in new_task
+    new_task['complete'] = False
 
     tasks.insert_one(new_task)
 
