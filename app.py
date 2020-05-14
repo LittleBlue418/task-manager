@@ -29,7 +29,10 @@ def add_task():
 def insert_task():
     tasks = mongo.db.tasks
     new_task = request.form.to_dict()
-    del new_task['action']
+
+    new_task['is_urgent'] = 'is_urgent' in new_task
+
+    print(new_task)
     tasks.insert_one(new_task)
 
     return redirect(url_for('get_tasks'))
