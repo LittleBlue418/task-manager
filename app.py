@@ -22,16 +22,20 @@ mongo = PyMongo(app)
 @app.route('/get_tasks')
 def get_tasks():
     show_completed = bool(request.args.get('show_completed'))
-
-    tasks = list(mongo.db.tasks.find())
     completed = []
     not_completed = []
 
-    for task in tasks:
-        if task['complete']:
-            completed.append(task)
-        else:
-            not_completed.append(task)
+    if show_completed:
+        tasks = mongo.db.tasks.find()
+
+        for task in tasks:
+            if task['complete']:
+                completed.append(task)
+            else:
+                not_completed.append(task)
+
+    else:
+        not_completed = mongo.db.tasks.find({ "complete": False })
 
     return render_template("tasks.html", completed=completed, not_completed=not_completed, show_completed=show_completed)
 
