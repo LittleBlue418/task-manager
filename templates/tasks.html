@@ -15,7 +15,7 @@
                     </div>
                     <div class="col s3">
                         <i class="material-icons">arrow_drop_down</i>
-                        <a class="waves-effect waves-light btn_small green">Done</a>
+                        <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn_small green">Done</a>
                         <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn_small blue">Edit</a>
                     </div>
                     <div class="col s3 task_header">
