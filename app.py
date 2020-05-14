@@ -110,8 +110,7 @@ def edit_category(category_id):
 
 @app.route('/update_category/<category_id>', methods=["POST"])
 def update_category(category_id):
-    categories = mongo.db.categories
-    categories.update({'_id': ObjectId(category_id)},
+    mongo.db.categories.update({'_id': ObjectId(category_id)},
         {
             'category_name': request.form.get('category_name'),
         })
