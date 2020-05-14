@@ -85,12 +85,8 @@ def toggle_complete(task_id):
     is_completed = bool(request.args.get('done'))
     print(is_completed)
 
-    if is_completed:
-        tasks.update_one({'_id': ObjectId(task_id)},
-            {'$set':{'complete': True}})
-    else:
-        tasks.update_one({'_id': ObjectId(task_id)},
-            {'$set':{'complete': False}})
+    tasks.update_one({'_id': ObjectId(task_id)},
+            {'$set':{'complete': is_completed}})
 
     return redirect(url_for('get_tasks'))
 
