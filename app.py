@@ -32,7 +32,6 @@ def insert_task():
 
     new_task['is_urgent'] = 'is_urgent' in new_task
 
-    print(new_task)
     tasks.insert_one(new_task)
 
     return redirect(url_for('get_tasks'))
