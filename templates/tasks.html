@@ -6,13 +6,21 @@
         {% for task in tasks %}
             <li>
                 <div class="collapsible-header">
-                    <i class="material-icons">crop_square</i>
-                    <i class="material-icons">arrow_drop_down</i>
-                    {% if task.is_urgent %}
-                        <i class="material-icons">flag</i>
-                    {% endif %}
-
-                    {{task.task_name}}  -  {{task.due_date}}  -  {{task.category_name}}
+                    <div class="col s3">
+                        {% if task.is_urgent %}
+                            <i class="material-icons">flag</i>
+                        {% else %}
+                            <i class="material-icons">remove</i>
+                        {% endif %}
+                    </div>
+                    <div class="col s3">
+                        <i class="material-icons">arrow_drop_down</i>
+                        <a class="waves-effect waves-light btn_small green">Done</a>
+                        <a class="waves-effect waves-light btn_small blue">Edit</a>
+                    </div>
+                    <div class="col s3 task_header">
+                        {{task.task_name}}  -  {{task.due_date}}  -  {{task.category_name}}
+                    </div>
                 </div>
                 <div class="collapsible-body">
                     <span>
@@ -20,15 +28,7 @@
                     </span>
                 </div>
             </li>
-
-
-
-
-
-
-
     {% endfor %}
-
     </ul>
 
 {% endblock%}
