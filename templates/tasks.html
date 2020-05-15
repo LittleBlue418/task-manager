@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="task_header">
 <h3>Tasks</h3>
+<a class="btn_square" href="{{url_for('add_task')}}" ><i class="material-icons" style="font-size: 40px;">add</i></a>
+</div>
+<div>
     <ul class="collapsible">
         {% for task in not_completed %}
             <li>
@@ -16,10 +19,19 @@
                     <div class="col s3">
                         <i class="material-icons">arrow_drop_down</i>
                         <a href="{{url_for('toggle_complete', task_id=task._id)}}?done=True" class="waves-effect waves-light btn_small green">Done</a>
-                        <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn_small blue">Edit</a>
+                        <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn_small">Edit</a>
                     </div>
-                    <div class="col s3 task_header">
-                        {{task.task_name}}  -  {{task.due_date}}  -  {{task.category_name}}
+                    <div class="col individual_task_header">
+                        <div >
+                            <strong>{{task.due_date}}</strong>
+                        </div>
+                        <div >
+                            {{task.task_name}}
+                        </div>
+
+                        <div >
+                            {{task.category_name}}
+                        </div>
                     </div>
                 </div>
                 <div class="collapsible-body">
@@ -30,11 +42,11 @@
             </li>
         {% endfor %}
     </ul>
-
+</div>
     {% if show_completed %}
-        <a href="{{url_for('get_tasks')}}" class="waves-effect waves-light btn_wide blue">Hide Completed</a>
+        <a href="{{url_for('get_tasks')}}" class="waves-effect waves-light btn_wide">Hide Completed</a>
     {% else %}
-        <a href="{{url_for('get_tasks')}}?show_completed=True" class="waves-effect waves-light  btn_wide blue">Show Completed</a>
+        <a href="{{url_for('get_tasks')}}?show_completed=True" class="waves-effect waves-light  btn_wide">Show Completed</a>
     {% endif %}
 
     {% if show_completed %}
@@ -54,8 +66,17 @@
                             <a href="{{url_for('toggle_complete', task_id=task._id)}}" class="waves-effect waves-light btn_small grey">Restore</a>
                             <a href="{{url_for('delete_task', task_id=task._id)}}" class="waves-effect waves-light btn_small red">Delete</a>
                         </div>
-                        <div class="col s3 task_header">
-                            {{task.task_name}}  -  {{task.due_date}}  -  {{task.category_name}}
+                        <div class="col individual_task_header">
+                            <div >
+                                <strong>{{task.due_date}}</strong>
+                            </div>
+                            <div >
+                                {{task.task_name}}
+                            </div>
+
+                            <div >
+                                {{task.category_name}}
+                            </div>
                         </div>
                     </div>
                     <div class="collapsible-body">
